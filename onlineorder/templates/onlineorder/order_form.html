@@ -1,0 +1,34 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <form action="{% url 'my-orders' %}" method="post">
+        {% csrf_token %}
+        <p>
+            Dear Customer,<br>
+            <em>Please take note of the following:</em><br><br>
+            <u>UOM (Unit of Measurement)</u><br>
+            Panel->pcs<br>
+            Accessories-><a href="{% url 'all-accessories' %}">Go to Accessories</a><br><br>
+            <u>PRODUCT/ITEM CODE</u><br>
+            Panel with hollow-><a href="{% url 'all-products' %}">Go to Panel with hollow</a><br>
+            Solid panel-><a href="{% url 'solid-panel' %}">Go to Solid panel</a><br>
+            Accessories-><a href="{% url 'all-accessories' %}">Go to Accessories</a><br><br>
+            <u>Lead Time Production</u><br>
+            a. <em>For standard size </em><b>3m and 3.3m height with 600mm width (thickness 100 with dia 64 mm) without reinforcement wire: </b>Lead time production is min 1-2 weeks upon receipt of the cutting list/purchase order<br>
+            b. For Customized/Special panel type & other sizes up to max 6m height: Lead time production in min 3-4 weeks upon receipt of the cutting list/purchase order<br><br>
+            <u>Estimated Delivery Time Normally if no force majeure:</u><br>
+            <ul>
+                <li>First trip       08:00 - 10:00 AM</li>
+                <li>Second trip      03:00 - 05:00 PM</li>
+            </ul><br>
+            {{ form.as_p }}
+            <b>NOTE: THE ABOVE ORDER CANNOT BE ALTERED/CANCELLED AFTER 2 WORKING DAYS FROM THE ISSUANCE DATE</b>
+            <br><br><input type="checkbox" {% ifequal value "I hereby declare that..." %}checked{% endifequal %}> I hereby declare that...
+        </p>
+        <input type="submit" value="Add another product">
+        <input type="submit" value="Save">
+        <input type="submit" value="Discard">
+        <button rel="Next" onclick="{% url 'product-order-form' %}">Next</button>
+        <input type="submit" value="Submit">
+    </form>
+{% endblock %}

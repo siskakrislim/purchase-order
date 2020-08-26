@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block title %}<title>JOE Green Panel Website</title>{% endblock %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- Add additional CSS in static file-->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <img class="joe-logo" src="{% static '../joe_logo.png' %}" style="width:200px;height:100px;">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-2">
+                {% block sidebar %}
+                <ul class="sidebar-nav">
+                    {% if user.is_authenticated %}
+                        <li>User: {{ user.get_username }}</li><br>
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li><a href="{% url 'all-products' %}">Panel with hollow</a></li>
+                        <li><a href="{% url 'all-accessories' %}">Accessories</a></li>
+                        <li><a href="{% url 'solid-panel' %}">Solid Panel</a></li><br>
+                        <li><a href="{% url 'order_create' %}">Purchase order form</a></li>
+                      <!--  <li><a href="{% url 'product-order-form' %}">Product order form temporary</a></li> -->
+                        <li><a href="{% url 'my-orders' %}">My orders</a></li>
+                        <br>
+                        <li><a href="{% url 'logout' %}?next={{request.path}}">Logout</a></li>
+                    {% else %}
+                        <li><a href="{% url 'login' %}?next={{request.path}}">Login</a></li>
+                    {% endif %}
+                </ul>
+                {% endblock %}
+            </div>
+            <div class="col-sm-10">{% block content %}{% endblock %}</div>
+        </div>
+    </div>
+</body>
+</html>

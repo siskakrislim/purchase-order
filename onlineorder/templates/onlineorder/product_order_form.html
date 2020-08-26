@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <form action="" method="post">
+        {% csrf_token %}
+        <p>
+            {{ form.as_p }}
+        </p>
+        <input type="submit" value="Add another product">
+        <button rel="Prev" onclick="{% url 'purchase-order-form' %}">Previous</button>
+        <input type="submit" value="Save">
+        <input type="submit" value="Discard">
+        <input type="submit" value="Submit">
+    </form>
+{% endblock %}
